@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis Assistant System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">T</div>
+            <div>
+                <h2>Thesis<span>Assist</span></h2>
+                <small>Research Management</small>
+            </div>
+        </div>
+
+        <nav>
+
+            <p class="menu-title">MAIN</p>
+
+            <button class="nav-btn active" data-page="dashboard">
+                <span>📊</span> Dashboard
+            </button>
+
+            <button class="nav-btn" data-page="chapters">
+                <span>📚</span> Chapters
+            </button>
+
+            <button class="nav-btn" data-page="rrl">
+                <span>📖</span> RRL Manager
+            </button>
+
+            <button class="nav-btn" data-page="questions">
+                <span>📝</span> Research Questions
+            </button>
+
+            <button class="nav-btn" data-page="respondents">
+                <span>👥</span> Respondents
+            </button>
+
+            <p class="menu-title">RESEARCH</p>
+
+            <button class="nav-btn" data-page="analysis">
+                <span>📈</span> Data Analysis
+            </button>
+
+            <button class="nav-btn" data-page="references">
+                <span>🔗</span> References
+            </button>
+
+            <button class="nav-btn" data-page="progress">
+                <span>🎯</span> Progress Tracker
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button id="clearDataBtn" class="danger-btn">
+                🗑 Clear All Data
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <button id="mobileMenu" class="mobile-menu">☰</button>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageSubtitle">Manage your thesis research in one place.</p>
+            </div>
+
+            <div class="header-right">
+                <div class="date-box">
+                    📅 <span id="currentDate"></span>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active">
+
+            <div class="welcome-card">
+
+                <div>
+                    <p class="small-label">THESIS PROJECT</p>
+                    <h2 id="dashboardTitle">
+                        Your Thesis Project
+                    </h2>
+                    <p>
+                        Track your research, literature, respondents,
+                        references and progress.
+                    </p>
+                </div>
+
+                <button class="primary-btn" onclick="openThesisModal()">
+                    ✏️ Edit Thesis
+                </button>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div>
+                        <p>Chapters</p>
+                        <h2 id="chapterCount">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div>
+                        <p>RRL Sources</p>
+                        <h2 id="rrlCount">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <p>Respondents</p>
+                        <h2 id="respondentCount">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔗</div>
+                    <div>
+                        <p>References</p>
+                        <h2 id="referenceCount">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Thesis Information</h3>
+                            <p>Your current research project</p>
+                        </div>
+
+                        <button class="icon-btn"
+                                onclick="openThesisModal()">
+                            ✏️
+                        </button>
+                    </div>
+
+                    <div class="thesis-info">
+
+                        <div class="info-row">
+                            <span>Title</span>
+                            <strong id="infoTitle">Not set</strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Researcher</span>
+                            <strong id="infoResearcher">Not set</strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Adviser</span>
+                            <strong id="infoAdviser">Not set</strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>School Year</span>
+                            <strong id="infoSchoolYear">Not set</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Overall Progress</h3>
+                            <p>Thesis completion</p>
+                        </div>
+
+                        <strong class="progress-number"
+                                id="overallProgress">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="overallProgressBar"
+                             class="progress-fill">
+                        </div>
+                    </div>
+
+                    <div class="progress-summary">
+
+                        <div>
+                            <strong id="completedChapters">
+                                0
+                            </strong>
+                            <span>Completed</span>
+                        </div>
+
+                        <div>
+                            <strong id="pendingChapters">
+                                0
+                            </strong>
+                            <span>Pending</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Recent Research Activity</h3>
+                        <p>Latest updates in your thesis</p>
+                    </div>
+
+                </div>
+
+                <div id="activityList" class="activity-list">
+
+                    <div class="empty-state">
+                        No activity yet.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CHAPTERS ================= -->
+
+        <section id="chapters" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Thesis Chapters</h2>
+                    <p>Manage your thesis chapters and progress.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openChapterModal()">
+                    + Add Chapter
+                </button>
+
+            </div>
+
+            <div id="chapterList" class="chapter-grid"></div>
+
+        </section>
+
+
+        <!-- ================= RRL ================= -->
+
+        <section id="rrl" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Review of Related Literature</h2>
+                    <p>Organize your RRL sources and research gaps.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openRRLModal()">
+                    + Add RRL
+                </button>
+
+            </div>
+
+            <div class="search-box">
+
+                <input type="text"
+                       id="rrlSearch"
+                       placeholder="🔍 Search RRL sources..."
+                       oninput="renderRRL()">
+
+            </div>
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Title</th>
+                        <th>Key Finding</th>
+                        <th>Research Gap</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="rrlTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUESTIONS ================= -->
+
+        <section id="questions" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Research Questions</h2>
+                    <p>Manage your Statement of the Problem.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openQuestionModal()">
+                    + Add Question
+                </button>
+
+            </div>
+
+            <div id="questionList" class="question-list"></div>
+
+        </section>
+
+
+        <!-- ================= RESPONDENTS ================= -->
+
+        <section id="respondents" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Respondents</h2>
+                    <p>Track your research participants.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openRespondentModal()">
+                    + Add Respondent
+                </button>
+
+            </div>
+
+
+            <div class="stats-grid respondent-stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <p>Total Respondents</p>
+                        <h2 id="totalRespondents">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♂️</div>
+                    <div>
+                        <p>Male</p>
+                        <h2 id="maleRespondents">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♀️</div>
+                    <div>
+                        <p>Female</p>
+                        <h2 id="femaleRespondents">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="respondentTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANALYSIS ================= -->
+
+        <section id="analysis" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Data Analysis</h2>
+                    <p>Calculate basic descriptive statistics.</p>
+                </div>
+
+            </div>
+
+
+            <div class="analysis-grid">
+
+                <div class="card">
+
+                    <h3>Weighted Mean Calculator</h3>
+
+                    <p class="muted">
+                        Enter scores separated by commas.
+                    </p>
+
+                    <textarea id="scoresInput"
+                              placeholder="Example: 4, 5, 3, 4, 5"></textarea>
+
+                    <button class="primary-btn"
+                            onclick="calculateMean()">
+                        Calculate
+                    </button>
+
+                    <div id="meanResult"
+                         class="analysis-result">
+                        Result will appear here.
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Percentage Calculator</h3>
+
+                    <div class="input-group">
+
+                        <label>Value</label>
+
+                        <input type="number"
+                               id="percentageValue"
+                               placeholder="Example: 45">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Total</label>
+
+                        <input type="number"
+                               id="percentageTotal"
+                               placeholder="Example: 50">
+
+                    </div>
+
+                    <button class="primary-btn"
+                            onclick="calculatePercentage()">
+                        Calculate
+                    </button>
+
+                    <div id="percentageResult"
+                         class="analysis-result">
+                        Result will appear here.
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Rating Interpretation</h3>
+
+                    <div class="rating-table">
+
+                        <div>
+                            <strong>4.21 – 5.00</strong>
+                            <span>Very High</span>
+                        </div>
+
+                        <div>
+                            <strong>3.41 – 4.20</strong>
+                            <span>High</span>
+                        </div>
+
+                        <div>
+                            <strong>2.61 – 3.40</strong>
+                            <span>Moderate</span>
+                        </div>
+
+                        <div>
+                            <strong>1.81 – 2.60</strong>
+                            <span>Low</span>
+                        </div>
+
+                        <div>
+                            <strong>1.00 – 1.80</strong>
+                            <span>Very Low</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= REFERENCES ================= -->
+
+        <section id="references" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>References</h2>
+                    <p>Manage books, journals, websites and other sources.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openReferenceModal()">
+                    + Add Reference
+                </button>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input type="text"
+                       id="referenceSearch"
+                       placeholder="🔍 Search references..."
+                       oninput="renderReferences()">
+
+            </div>
+
+
+            <div id="referenceList"
+                 class="reference-list">
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROGRESS ================= -->
+
+        <section id="progress" class="page">
+
+            <div class="page-actions">
+
+                <div>
+                    <h2>Progress Tracker</h2>
+                    <p>Monitor the completion of your thesis.</p>
+                </div>
+
+            </div>
+
+            <div id="progressList"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= THESIS MODAL ================= -->
+
+<div id="thesisModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Thesis Information</h2>
+            <button onclick="closeModal('thesisModal')">×</button>
+        </div>
+
+        <form id="thesisForm">
+
+            <div class="input-group">
+
+                <label>Thesis Title</label>
+
+                <textarea id="thesisTitle"
+                          required></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Researcher / Researchers</label>
+
+                <input type="text"
+                       id="thesisResearcher"
+                       required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Adviser</label>
+
+                <input type="text"
+                       id="thesisAdviser">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>School Year</label>
+
+                <input type="text"
+                       id="thesisSchoolYear"
+                       placeholder="2026-2027">
+
+            </div>
+
+            <button class="primary-btn full-btn"
+                    type="submit">
+                Save Thesis
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CHAPTER MODAL ================= -->
+
+<div id="chapterModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Add Chapter</h2>
+            <button onclick="closeModal('chapterModal')">×</button>
+        </div>
+
+        <form id="chapterForm">
+
+            <div class="input-group">
+
+                <label>Chapter</label>
+
+                <select id="chapterName">
+
+                    <option>Chapter 1 – Introduction</option>
+                    <option>Chapter 2 – Review of Related Literature</option>
+                    <option>Chapter 3 – Methodology</option>
+                    <option>Chapter 4 – Results and Discussion</option>
+                    <option>Chapter 5 – Conclusion and Recommendations</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Status</label>
+
+                <select id="chapterStatus">
+
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Notes</label>
+
+                <textarea id="chapterNotes"></textarea>
+
+            </div>
+
+            <button class="primary-btn full-btn">
+                Save Chapter
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= RRL MODAL ================= -->
+
+<div id="rrlModal" class="modal">
+
+    <div class="modal-content large-modal">
+
+        <div class="modal-header">
+
+            <h2>Add RRL Source</h2>
+
+            <button onclick="closeModal('rrlModal')">
+                ×
+            </button>
+
+        </div>
+
+        <form id="rrlForm">
+
+            <div class="two-column">
+
+                <div class="input-group">
+
+                    <label>Author</label>
+
+                    <input id="rrlAuthor"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Year</label>
+
+                    <input id="rrlYear"
+                           type="number"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Title</label>
+
+                <input id="rrlTitle"
+                       required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Key Finding</label>
+
+                <textarea id="rrlFinding"></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Research Gap</label>
+
+                <textarea id="rrlGap"></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Source / URL</label>
+
+                <input id="rrlSource">
+
+            </div>
+
+            <button class="primary-btn full-btn">
+                Save RRL
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= QUESTION MODAL ================= -->
+
+<div id="questionModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Research Question</h2>
+
+            <button onclick="closeModal('questionModal')">
+                ×
+            </button>
+
+        </div>
+
+        <form id="questionForm">
+
+            <div class="input-group">
+
+                <label>Question Number</label>
+
+                <input type="number"
+                       id="questionNumber"
+                       required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Research Question</label>
+
+                <textarea id="questionText"
+                          required></textarea>
+
+            </div>
+
+            <button class="primary-btn full-btn">
+                Save Question
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= RESPONDENT MODAL ================= -->
+
+<div id="respondentModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Respondent</h2>
+
+            <button onclick="closeModal('respondentModal')">
+                ×
+            </button>
+
+        </div>
+
+        <form id="respondentForm">
+
+            <div class="input-group">
+
+                <label>Name</label>
+
+                <input id="respondentName"
+                       required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Age</label>
+
+                <input type="number"
+                       id="respondentAge">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Gender</label>
+
+                <select id="respondentGender">
+
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Prefer not to say</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Category</label>
+
+                <input id="respondentCategory"
+                       placeholder="Example: Student">
+
+            </div>
+
+            <button class="primary-btn full-btn">
+                Save Respondent
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= REFERENCE MODAL ================= -->
+
+<div id="referenceModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Reference</h2>
+
+            <button onclick="closeModal('referenceModal')">
+                ×
+            </button>
+
+        </div>
+
+        <form id="referenceForm">
+
+            <div class="input-group">
+
+                <label>Author</label>
+
+                <input id="referenceAuthor"
+                       required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Year</label>
+
+                <input id="referenceYear"
+                       type="number">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Title</label>
+
+                <textarea id="referenceTitle"
+                          required></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Type</label>
+
+                <select id="referenceType">
+
+                    <option>Journal</option>
+                    <option>Book</option>
+                    <option>Website</option>
+                    <option>Thesis</option>
+                    <option>Conference Paper</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+            <button class="primary-btn full-btn">
+                Save Reference
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
